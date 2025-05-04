@@ -1,64 +1,90 @@
 import 'package:intl/intl.dart';
 import '../constants/app_constants.dart';
 
+/// Tarih formatlama yardımcı sınıfı
 class DateFormatter {
-  // DateTime'ı Türkçe formatlı string olarak döndürür (ör: 01.01.2023)
+  /// Tarihi dd.MM.yyyy formatında göster (ör: 05.06.2023)
   static String formatDate(DateTime? date) {
     if (date == null) return '';
-    return DateFormat(AppConstants.dateFormat).format(date);
+    return DateFormat(AppConstants.dateFormatDisplay).format(date);
   }
-  
-  // DateTime nesnesini gün adıyla birlikte döndürür (ör: 01.01.2023 Pazartesi)
-  static String formatDateWithDay(DateTime? date) {
-    if (date == null) return '';
-    final weekdays = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
-    final dayName = weekdays[date.weekday - 1];
-    return '${formatDate(date)} $dayName';
+
+  /// Tarihi ve saati dd.MM.yyyy HH:mm formatında göster (ör: 05.06.2023 15:30)
+  static String formatDateTime(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    return DateFormat(AppConstants.dateTimeFormatDisplay).format(dateTime);
   }
-  
-  // String'i DateTime nesnesine dönüştürür
+
+  /// String'den DateTime oluştur (dd.MM.yyyy formatından)
   static DateTime? parseDate(String? dateStr) {
     if (dateStr == null || dateStr.isEmpty) return null;
     try {
-      return DateFormat(AppConstants.dateFormat).parse(dateStr);
+      return DateFormat(AppConstants.dateFormatDisplay).parse(dateStr);
     } catch (e) {
       return null;
     }
   }
-  
-  // Tarih ve saat formatı (ör: 01.01.2023 14:30)
-  static String formatDateTime(DateTime? dateTime) {
-    if (dateTime == null) return '';
-    return DateFormat('${AppConstants.dateFormat} HH:mm').format(dateTime);
+
+  /// Tarihi yaşa çevir
+  static int calculateAge(DateTime birthDate) {
+    final today = DateTime.now();
+    int age = today.year - birthDate.year;
+    if (today.month < birthDate.month || 
+        (today.month == birthDate.month && today.day < birthDate.day)) {
+      age--;
+    }
+    return age;
   }
-  
-  // Ay ve yıl formatı (ör: Ocak 2023)
-  static String formatMonthYear(DateTime? date) {
-    if (date == null) return '';
-    
-    final months = [
-      'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
-      'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
-    ];
-    
-    return '${months[date.month - 1]} ${date.year}';
-  }
-  
-  // İki tarih arasındaki gün farkı
+
+  /// İki tarih arasındaki gün farkını hesapla
   static int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
   }
-  
-  // Kalan gün sayısını formatla (pozitif, negatif veya 0)
+
+  /// Belirli bir tarihe kalan gün sayısını hesapla
+  static int daysUntil(DateTime? date) {
+    if (date == null) return 0;
+    
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final targetDate = DateTime(date.year, date.month, date.day);
+    
+    if (targetDate.isBefore(today)) return 0;
+    return daysBetween(today, targetDate);
+  }
+
+  /// Kalan gün sayısını metin olarak formatla
   static String formatRemainingDays(int days) {
-    if (days > 0) {
-      return '$days gün kaldı';
-    } else if (days < 0) {
-      return '${days.abs()} gün geçti';
+    if (days <= 0) {
+      return 'Süresi doldu';
+    } else if (days == 1) {
+      return '1 gün kaldı';
     } else {
-      return 'Bugün son gün';
+      return '$days gün kaldı';
+    }
+  }
+
+  /// Geçen süreyi metin olarak formatla
+  static String formatTimeAgo(DateTime date) {
+    final now = DateTime.now();
+    final difference = now.difference(date);
+    
+    if (difference.inDays > 365) {
+      final years = (difference.inDays / 365).floor();
+      return '$years yıl önce';
+    } else if (difference.inDays > 30) {
+      final months = (difference.inDays / 30).floor();
+      return '$months ay önce';
+    } else if (difference.inDays > 0) {
+      return '${difference.inDays} gün önce';
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours} saat önce';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} dakika önce';
+    } else {
+      return 'az önce';
     }
   }
 }
