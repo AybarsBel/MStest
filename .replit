@@ -1,0 +1,28 @@
+modules = ["flutter"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["flutter"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Flutter Packages"
+
+[[workflows.workflow]]
+name = "Flutter Packages"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "flutter pub get"
+
+[deployment]
+run = ["sh", "-c", "flutter pub get && flutter run --no-sound-null-safety -d web-server --web-port=5000 --web-hostname=0.0.0.0"]
