@@ -1,0 +1,188 @@
+🏷️ Uygulama Adı
+Ms Fitness Üye Kayıt Sistemi
+
+📦 Platform Bilgisi
+🌐 Geliştirme Teknolojisi:
+
+Flutter + Dart
+
+📲 Hedef Platform:
+
+Sadece Android (APK çıkışı)
+
+🛠 Veritabanı:
+
+SQLite (Room alternatifi olarak Drift ya da Floor kullanılabilir)
+
+Veriler cihazın dahili hafızasında tutulur — %100 offline çalışır
+
+📁 Android İzinleri:
+
+Kamera: android.permission.CAMERA
+
+Depolama:
+
+android.permission.READ_EXTERNAL_STORAGE
+
+android.permission.WRITE_EXTERNAL_STORAGE
+
+Android 11+ için SAF uyumu için: MANAGE_EXTERNAL_STORAGE (isteğe bağlı)
+
+📚 SDK & Gradle Tavsiyesi:
+
+minSdkVersion: 23
+
+targetSdkVersion: 34
+
+Gradle Plugin Version: 8.1.2
+
+Android Gradle Plugin: 7.4.2
+
+🖌️ Tema & Arayüz
+Uygulama Teması:
+
+Renkler:
+
+🟥 Kırmızı (ana vurgu rengi – butonlar, ikonlar)
+
+⬛ Siyah (arka planlar, menü barları)
+
+⬜ Beyaz veya açık gri (metinler için kontrast)
+
+Tasarım:
+
+Material Design uyumlu
+
+Modern ve sade
+
+Responsive tasarım (tüm ekran boyutlarına uyumlu)
+
+Büyük butonlar ve sade ikonlar
+
+Karanlık arka plan üzerinde kontrastlı kırmızı butonlar
+
+🏠 Ana Menü Başlıkları
+➕ Üye Kayıt Ekle
+
+📷 QR Kod Sorgula
+
+📊 Gelir Raporu
+
+⚙️ Ayarlar
+
+⏰ Yenileme Gereken Üyeler
+
+👤 Üye Kayıt Özellikleri
+Adı Soyadı
+
+Doğum Tarihi (takvim seçici)
+
+Telefon Numarası
+
+Kan Grubu (dropdown list)
+
+Kayıt Tarihi (otomatik alınır)
+
+Profil Fotoğrafı:
+
+📷 Kameradan çekilebilir
+
+🖼️ Galeriden seçilebilir
+
+🔲 QR Kod Özellikleri
+Üyelere özel benzersiz QR kod (qr_flutter)
+
+QR kod .png veya .pdf olarak dışa aktarılabilir (path_provider, permission_handler, pdf)
+
+QR kodlar /MsFitness/QR/ klasörüne kaydedilir
+
+QR kod taraması için mobile_scanner kullanılır
+
+📲 QR Kod Okuma ve Üye Bilgisi Gösterme
+Adı Soyadı
+
+Doğum Tarihi
+
+Kayıt Tarihi
+
+Telefon Numarası
+
+Kan Grubu
+
+Profil Fotoğrafı
+
+Kalan Gün: Kayıt Tarihi + 1 Ay – Bugünün Tarihi
+
+Ödeme Durumu:
+
+✅ Aktif
+
+❌ Borçlu
+
+💰 Üyelik & Ödeme Takibi
+Varsayılan üyelik süresi: Kayıt Tarihi + 1 Takvim Ayı
+
+Aylık ücret: ₺800 (ayarlar ekranından değiştirilebilir)
+
+Ödeme yapılmazsa: “Borçlu” olarak görünür
+
+“Ödeme Yapıldı” durumu manuel olarak işaretlenir
+
+Kalan gün bilgisi günlük otomatik güncellenir
+
+Yeniden aktif hale getirilen üyelerde kalan süre korunur
+
+⏰ Yenileme Hatırlatmaları
+Ana ekranda özel liste:
+
+7 gün veya daha az süresi kalan üyeler
+
+Borçlu üyeler
+
+Kırmızı uyarı ikonları ve renkli arka plan ile vurgulanır
+
+📈 Gelir Raporları
+Aylık toplam gelir grafikle gösterilir (fl_chart)
+
+Herkes ödeme yapsaydı oluşacak potansiyel gelir ayrıca gösterilir
+
+Grafikler uygulamanın kırmızı-siyah temasına uygun şekilde çizilir
+
+PDF olarak dışa aktarılabilir
+
+/MsFitness/Reports/ klasörüne kaydedilir
+
+Tarih aralığına göre filtreleme yapılabilir
+
+🗃️ Üye Yönetimi
+Üyeler alfabetik sıralanır
+
+Arama çubuğu ile filtreleme yapılabilir
+
+Her üyenin detay ekranı açılır
+
+Üyeler doğrudan silinmez
+
+“Pasif Üyeler” listesine taşınır
+
+Tek tıklamayla yeniden aktif hale getirilebilir
+
+Geçmiş ödeme/süre bilgileri korunur
+
+📂 Yedekleme & Geri Yükleme
+JSON ve PDF formatında yedeklenebilir
+
+Yedekler /MsFitness/Backup/ klasörüne kaydedilir
+
+file_picker ile yedek dosyası seçilerek geri yüklenebilir
+
+Veriler birleştirilir — mevcut veriler silinmez, yeni olanlar eklenir, çakışanlar güncellenir
+
+⚙️ Ayarlar
+Uygulama Dili: Sadece Türkçe
+
+Üyelik Ücreti: Varsayılan ₺800, kullanıcı değiştirilebilir
+
+Tema: Kırmızı & Siyah (değiştirilemez)
+
+Tasarım: Responsive, sade, Material uyumlu
